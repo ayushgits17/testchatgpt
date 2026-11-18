@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#183a34"/>
+  <meta name="description" content="NOVA – thoughtfully designed objects for modern everyday living. A beautifully crafted demo product showcase."/>
+  <title>NOVA — Objects for Better Living</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--ink:#1c2c29;--pine:#203c34;--pine2:#2b4a40;--muted:#6c7772;--canvas:#faf9f5;--cream:#f2f1e9;--border:#e4e7df;--orange:#edaa72;--mint:#d8e4d6;--radius:18px;--shadow:0 24px 65px rgba(20,43,35,.13)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:var(--canvas);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #e9a875;outline-offset:3px}
+    .container{width:min(1240px,calc(100% - 80px));margin-inline:auto}
+    .announce{height:35px;background:#142e29;color:#e9e9d9;display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+    .announce b{color:#eebd96;font-weight:700}
+    header{height:83px;background:rgba(250,249,245,.95);border-bottom:1px solid #e9eae4;position:sticky;top:0;z-index:40;backdrop-filter:blur(18px)}
+    .nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{font-family:Manrope,sans-serif;font-size:27px;font-weight:800;letter-spacing:-.095em;line-height:1;white-space:nowrap}
+    .brand-mark{display:inline-block;letter-spacing:-.06em;transform:translateY(-1px)}
+    .nav-links{display:flex;gap:38px;align-items:center;margin-left:58px}
+    .nav-links a{font-size:13px;font-weight:600;color:#52625b;transition:color .2s}
+    .nav-links a:hover{color:var(--ink)}
+    .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+    .icon-btn{border:0;background:none;width:42px;height:42px;display:grid;place-items:center;position:relative;color:#274239;border-radius:50%}
+    .icon-btn:hover{background:#ebeee8}
+    .icon-btn svg{height:21px;width:21px;stroke-width:1.7}
+    .count{position:absolute;right:0;top:1px;background:var(--orange);color:#173a31;border-radius:50%;font-size:10px;width:17px;height:17px;display:grid;place-items:center;font-weight:800}
+    .mobile-menu{display:none}
+    .hero{background:var(--pine);min-height:505px;color:#fff;position:relative;overflow:hidden}
+    .hero:after{content:"";width:720px;height:720px;border:1px solid rgba(255,255,255,.06);border-radius:50%;position:absolute;right:-240px;top:-230px;pointer-events:none}
+    .hero-inner{min-height:505px;display:grid;grid-template-columns:48% 52%;align-items:center;position:relative;z-index:1}
+    .hero-copy{padding:62px 0 66px}
+    .eyebrow{font-size:11px;letter-spacing:.22em;font-weight:800;text-transform:uppercase}
+    .hero-eyebrow{color:#c4d4bd;display:flex;align-items:center;gap:12px}
+    .hero-eyebrow:before{content:"";width:27px;height:1px;background:var(--orange)}
+    h1,h2,h3,p{margin-top:0}
+    h1,h2,h3{font-family:Manrope,sans-serif}
+    h1{font-size:clamp(46px,5.2vw,78px);line-height:1.07;letter-spacing:-.067em;font-weight:600;margin:26px 0 20px}
+    h1 em{color:#dfba9b;font-style:normal}
+    .hero-sub{font-size:14px;color:#c3d0c8;line-height:1.85;max-width:395px;margin-bottom:31px}
+    .btn{min-height:47px;border-radius:6px;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:18px;padding:0 20px;font-size:12px;letter-spacing:.01em;font-weight:800;transition:transform .2s,background .2s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-light{background:#f4ede2;color:#18372d}
+    .btn-dark{background:var(--pine);color:#fff}
+    .btn-line{background:transparent;border-color:#d5dfd8;color:#315146}
+    .hero-notes{margin-top:52px;display:flex;align-items:center;gap:28px;color:#d6e0d9;font-size:11px}
+    .hero-notes span{display:flex;gap:9px;align-items:center}
+    .hero-notes svg{width:18px;height:18px;stroke:#c4dbb5}
+    .hero-art{position:relative;height:100%;display:grid;place-items:center;min-height:495px}
+    .hero-disc{width:min(530px,90%);aspect-ratio:1;border-radius:50%;background:#ecdfc9;position:absolute;top:50%;left:54%;transform:translate(-50%,-47%);box-shadow:inset 0 0 90px #d8ceb9}
+    .hero-disc:after{content:"";position:absolute;inset:9%;border:1px solid rgba(125,112,90,.13);border-radius:50%}
+    .hero-product{width:500px;max-width:105%;position:relative;z-index:2;filter:drop-shadow(10px 25px 14px rgba(11,26,22,.28));transform:translate(14px,28px)}
+    .hero-label{position:absolute;bottom:49px;right:5px;z-index:3;display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.96);color:var(--ink);padding:13px 16px;border-radius:9px;box-shadow:0 14px 35px rgba(0,0,0,.13)}
+    .hero-label span{display:block;font-size:10px;color:#87918a;margin-bottom:5px}
+    .hero-label strong{display:block;font-size:12px}
+    .hero-label .label-arrow{background:var(--cream);padding:7px;border-radius:50%}
+    .trust-strip{border-bottom:1px solid var(--border);background:#f3f3ed}
+    .trust-inner{display:grid;grid-template-columns:repeat(4,1fr);padding:23px 0;gap:20px}
+    .trust-item{display:flex;align-items:center;justify-content:center;gap:12px;border-right:1px solid #dfe3db;font-size:12px;font-weight:700;color:#4b5c53}
+    .trust-item:last-child{border-right:0}
+    .trust-item svg{width:20px;height:20px;stroke:#607d6a;stroke-width:1.6}
+    .section{padding:88px 0}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:32px}
+    .section-kicker{font-size:11px;letter-spacing:.17em;color:#7e907f;font-weight:800;text-transform:uppercase;display:block;margin-bottom:13px}
+    .section h2{font-size:clamp(31px,3.1vw,46px);line-height:1.16;letter-spacing:-.06em;font-weight:700;margin:0}
+    .section-desc{color:#7f8981;max-width:310px;font-size:13px;line-height:1.8;margin:0}
+    .filter-row{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px;flex-wrap:wrap}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{border:1px solid #dde4da;color:#728078;background:transparent;border-radius:35px;padding:10px 17px;font-size:11px;font-weight:700;transition:all .2s}
+    .chip:hover{border-color:#83998a;color:var(--ink)}
+    .chip.active{background:var(--pine);border-color:var(--pine);color:white}
+    .tools{display:flex;gap:10px;align-items:center}
+    .search-box{width:200px;display:flex;align-items:center;gap:9px;height:36px;padding:0 12px;border:1px solid #e1e5dc;border-radius:35px;background:white;color:#97a096}
+    .search-box svg{width:15px;height:15px;flex:none}
+    .search-box input{width:100%;border:0;outline:0;background:transparent;font-size:11px;color:var(--ink)}
+    .sort{font-size:11px;color:#738078;border:0;background:transparent;outline:none;padding:9px 0}
+    .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px 20px}
+    .product-card{min-width:0;position:relative}
+    .product-art{aspect-ratio:1.04;display:grid;place-items:center;border-radius:9px;overflow:hidden;position:relative;transition:transform .25s}
+    .product-card:hover .product-visual{transform:scale(1.065) translateY(-3px)}
+    .product-visual{width:84%;max-height:84%;transition:transform .35s cubic-bezier(.2,.7,.3,1);filter:drop-shadow(0 12px 10px rgba(44,49,40,.11))}
+    .product-tag{position:absolute;z-index:2;top:14px;left:14px;background:#fff;padding:6px 10px;border-radius:4px;font-size:9px;letter-spacing:.08em;font-weight:800;text-transform:uppercase;color:#53655a}
+    .wish{position:absolute;z-index:3;right:12px;top:12px;background:rgba(255,255,255,.87);border:0;border-radius:50%;height:34px;width:34px;display:grid;place-items:center;color:#5b6a61}
+    .wish.active{background:#fff0e8;color:#d57c53}
+    .wish svg{height:17px;width:17px;stroke-width:1.7}
+    .quick{position:absolute;z-index:3;bottom:13px;left:13px;right:13px;transform:translateY(120%);opacity:0;transition:.24s;background:#fff;border:0;border-radius:5px;padding:12px;font-size:11px;font-weight:800;box-shadow:0 6px 20px rgba(32,50,40,.1)}
+    .product-card:hover .quick,.quick:focus-visible{transform:translateY(0);opacity:1}
+    .product-meta{padding:15px 2px 0;display:flex;justify-content:space-between;gap:10px}
+    .product-category{font-size:10px;letter-spacing:.03em;color:#8a958c;margin-bottom:6px}
+    .product-name{font-size:13px;font-weight:800;letter-spacing:-.02em;line-height:1.45;margin:0}
+    .product-price{font-size:13px;white-space:nowrap;font-weight:800;margin-top:19px}
+    .product-price small{text-decoration:line-through;color:#9ba49d;font-weight:500;font-size:10px;margin-left:5px}
+    .review{display:flex;align-items:center;gap:5px;color:#d79a5d;font-size:10px;margin-top:8px}
+    .review span{color:#9aa49a}
+    .empty{grid-column:1/-1;text-align:center;padding:65px 18px;color:#818f85}
+    .feature-panel{display:grid;grid-template-columns:1fr 1fr;background:#e8ece4;border-radius:12px;overflow:hidden;min-height:352px}
+    .feature-copy{padding:70px 64px;display:flex;flex-direction:column;align-items:start;justify-content:center}
+    .feature-copy h2{max-width:450px;margin:0 0 14px}
+    .feature-copy p{max-width:355px;font-size:13px;color:#657970;line-height:1.9;margin:0 0 25px}
+    .feature-visual{background:#d7dfd1;display:grid;place-items:center;overflow:hidden;position:relative}
+    .feature-visual:before{content:"";position:absolute;width:340px;height:340px;border:1px solid #bccdbb;border-radius:50%}
+    .feature-visual:after{content:"";position:absolute;width:480px;height:480px;border:1px solid #c6d5c4;border-radius:50%}
+    .feature-visual svg{max-width:390px;width:84%;z-index:2;filter:drop-shadow(0 18px 16px rgba(33,51,42,.15))}
+    .story{padding:0 0 87px}
+    .story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .story-item{padding:0 16px;border-left:1px solid #d8e0d8}
+    .story-item .no{font-size:11px;font-weight:800;color:#8da092;letter-spacing:.12em}
+    .story-item h3{font-size:17px;letter-spacing:-.03em;margin:16px 0 9px}
+    .story-item p{font-size:12px;line-height:1.8;max-width:280px;color:#7a887d;margin:0}
+    .newsletter{background:#233f37;color:#fff;padding:63px 0}
+    .newsletter-inner{display:flex;justify-content:space-between;align-items:center;gap:25px}
+    .newsletter h2{font-size:31px;letter-spacing:-.05em;margin:0 0 7px}
+    .newsletter p{color:#becdc2;font-size:12px;margin:0}
+    .subscribe{display:flex;gap:6px;width:min(390px,100%)}
+    .subscribe input{background:#eaf0e8;border:0;border-radius:5px;padding:14px 16px;width:100%;min-width:0;font-size:12px;color:#1c3b32}
+    .subscribe button{white-space:nowrap;border:0;border-radius:5px;background:#e8b58d;color:#1e3a31;font-size:11px;font-weight:800;padding:0 19px}
+    footer{background:#1a3029;color:#c5d2c7;padding:60px 0 26px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px}
+    .footer-brand{color:#fff;font-size:30px}
+    .footer-lead{color:#9fb2a5;font-size:12px;line-height:1.8;max-width:250px;margin-top:20px}
+    .footer-col h4{color:#e9f2eb;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:4px 0 19px}
+    .footer-col a{display:block;font-size:12px;color:#9eb2a5;margin:0 0 12px}
+    .footer-col a:hover{color:white}
+    .footer-bottom{display:flex;justify-content:space-between;gap:24px;margin-top:55px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);font-size:10px;color:#92a79b}
+    .overlay{position:fixed;inset:0;background:rgba(11,25,20,.55);backdrop-filter:blur(4px);z-index:60;opacity:0;visibility:hidden;transition:.25s}
+    .overlay.open{opacity:1;visibility:visible}
+    .cart-drawer{background:#fff;position:fixed;right:0;top:0;bottom:0;z-index:70;width:min(455px,100%);transform:translateX(105%);transition:transform .28s ease;padding:32px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+    .cart-drawer.open{transform:translateX(0)}
+    .drawer-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:20px}
+    .drawer-head h2{margin:0;font-size:23px;letter-spacing:-.06em}
+    .close{width:35px;height:35px;background:#f2f3ef;border:0;border-radius:50%;font-size:23px;line-height:1;color:#375046}
+    .cart-items{overflow:auto;flex:1;padding-top:15px}
+    .cart-item{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--border)}
+    .cart-thumb{flex:0 0 88px;height:88px;border-radius:8px;display:grid;place-items:center}
+    .cart-thumb svg{width:80px;height:80px}
+    .cart-item-info{flex:1;min-width:0}
+    .cart-item h3{font-size:13px;margin:3px 0 8px}
+    .cart-item p{font-size:12px;font-weight:700;margin:0 0 8px}
+    .qty{display:inline-flex;align-items:center;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+    .qty button{background:#f9faf7;border:0;width:27px;height:26px}
+    .qty span{font-size:11px;padding:0 9px}
+    .remove{border:0;background:none;font-size:10px;color:#9e715a;margin-left:9px}
+    .cart-footer{padding-top:22px;border-top:1px solid var(--border)}
+    .subtotal{display:flex;justify-content:space-between;font-weight:800;margin-bottom:10px}
+    .cart-footer small{display:block;color:#8b998d;font-size:11px;margin-bottom:21px}
+    .cart-footer .btn{width:100%}
+    .cart-empty{text-align:center;padding:90px 0;color:#7d8e83;font-size:13px}
+    .cart-empty svg{display:block;margin:0 auto 20px;stroke:#99a89c}
+    .modal{position:fixed;z-index:71;width:min(800px,calc(100% - 30px));left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);background:#fff;border-radius:15px;overflow:hidden;opacity:0;visibility:hidden;transition:.22s;box-shadow:var(--shadow)}
+    .modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr}
+    .modal-art{min-height:390px;display:grid;place-items:center}
+    .modal-art svg{width:90%;max-width:340px}
+    .modal-copy{padding:48px 36px;position:relative;display:flex;flex-direction:column;align-items:start;justify-content:center}
+    .modal-copy .close{position:absolute;top:18px;right:18px}
+    .modal-copy h2{font-size:29px;letter-spacing:-.06em;margin:13px 0 8px}
+    .modal-copy p{font-size:12px;color:#748177;line-height:1.9;margin:18px 0 25px}
+    .modal-price{font-size:22px;font-weight:800}
+    .modal-copy .btn{width:100%}
+    .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,30px);padding:13px 20px;background:#1f3c33;color:#fff;box-shadow:var(--shadow);border-radius:9px;font-size:12px;z-index:95;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap;max-width:calc(100% - 25px)}
+    .toast.show{transform:translate(-50%,0);opacity:1}
+    .menu-panel{display:none}
+    @media(max-width:1030px){.container{width:min(100% - 48px,1240px)}.nav-links{margin-left:10px;gap:20px}.hero-inner{grid-template-columns:50% 50%}.hero-art{min-height:440px}.hero-product{width:440px}.hero-label{bottom:28px;right:-8px}.products{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:60px}.feature-copy{padding:48px}}
+    @media(max-width:720px){.container{width:calc(100% - 34px)}.announce{font-size:9px}.nav{gap:10px}header{height:67px}.brand{font-size:25px}.nav-links{display:none}.mobile-menu{display:grid}.nav-right{gap:3px}.hero-inner{grid-template-columns:1fr}.hero{min-height:initial}.hero-copy{padding:52px 0 8px}.hero h1{font-size:clamp(46px,11vw,68px);max-width:540px;margin:22px 0 14px}.hero-sub{font-size:13px;max-width:360px;margin-bottom:24px}.hero-notes{margin:25px 0 0;gap:18px}.hero-art{min-height:310px}.hero-disc{width:300px;left:50%;transform:translate(-50%,-45%)}.hero-product{width:315px;transform:translate(0,6px)}.hero-label{right:3%;bottom:19px;padding:9px 12px}.trust-inner{grid-template-columns:repeat(2,1fr);gap:15px 0;padding:21px 0}.trust-item{font-size:10px}.trust-item:nth-child(2){border:0}.trust-item svg{width:16px;height:16px}.section{padding:62px 0}.section-heading{display:block}.section h2{font-size:34px}.section-desc{margin-top:15px}.filter-row{align-items:start}.tools{width:100%}.search-box{flex:1}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}.product-tag{font-size:8px;top:9px;left:9px;padding:5px 7px}.wish{top:8px;right:8px;width:31px;height:31px}.product-price{margin-top:18px}.product-meta{gap:4px}.product-name,.product-price{font-size:12px}.quick{opacity:1;transform:none;bottom:9px;left:9px;right:9px;padding:9px}.feature-panel{grid-template-columns:1fr}.feature-copy{padding:46px 30px}.feature-visual{min-height:310px}.story{padding:0 0 62px}.story-grid{grid-template-columns:1fr;gap:25px}.newsletter-inner{display:block}.newsletter h2{font-size:28px}.subscribe{margin-top:25px}.footer-grid{grid-template-columns:1fr 1fr;gap:28px}.footer-grid>div:first-child{grid-column:1/-1}.footer-bottom{display:block;line-height:1.8}.modal-grid{grid-template-columns:1fr}.modal{max-height:92vh;overflow:auto}.modal-art{min-height:250px}.modal-art svg{max-height:230px}.modal-copy{padding:25px}.modal-copy h2{font-size:23px}.menu-panel{display:block;position:absolute;top:67px;left:0;right:0;background:var(--canvas);padding:20px 25px;border-bottom:1px solid var(--border);box-shadow:0 10px 20px rgba(0,0,0,.06)}.menu-panel a{display:block;padding:11px 0;font-size:13px;font-weight:700}}
+    @media(max-width:370px){.hero-notes{font-size:9px}.trust-item{gap:7px}.chip{padding:9px 12px}.product-price small{display:none}.hero h1{font-size:42px}}
+
+    /* REAL PHOTO PRODUCT SHOWCASE — Visual upgrades */
+    button{transition:background-color .34s ease,color .34s ease,border-color .34s ease,box-shadow .34s ease,transform .32s ease,opacity .3s ease}
+    .menu-panel[hidden]{display:none!important}
+    .hero-slider{height:min(680px,calc(100svh - 118px));min-height:545px;background:#263e35;isolation:isolate}
+    .hero-slider:after{display:none}
+    .hero-backgrounds,.hero-shade,.hero-background{position:absolute;inset:0}
+    .hero-backgrounds{z-index:-2;overflow:hidden}
+    .hero-background{background-size:cover;background-position:center center;opacity:0;transform:scale(1.045);transition:opacity 1s ease,transform 7s ease;will-change:opacity,transform}
+    .hero-background.active{opacity:1;transform:scale(1)}
+    .hero-background:nth-child(2){background-position:55% 60%}
+    .hero-shade{z-index:-1;background:linear-gradient(90deg,rgba(13,30,26,.84) 0%,rgba(16,36,31,.68) 35%,rgba(12,27,24,.1) 86%),linear-gradient(0deg,rgba(8,20,17,.39),transparent 45%)}
+    .hero-slider .hero-inner{display:flex;align-items:center;min-height:calc(100% - 87px);height:calc(100% - 87px)}
+    .hero-slider .hero-copy{padding:42px 0 12px;width:650px;max-width:90%}
+    .hero-slider h1{max-width:700px;font-weight:650;font-size:clamp(54px,5.8vw,88px);margin:26px 0 24px;letter-spacing:-.065em}
+    .hero-slider h1 em{color:#f0be94}
+    .hero-slider .hero-eyebrow{color:#eee5d4}
+    .hero-slider .hero-sub{max-width:460px;font-size:15px;color:#e1e6de;line-height:1.75;margin-bottom:32px}
+    .hero-slider .hero-notes{margin-top:39px;color:#e5e3da;gap:30px}
+    .hero-toolbar{height:87px;display:flex;align-items:center;gap:22px;position:relative;z-index:4;border-top:1px solid rgba(255,255,255,.23)}
+    .hero-slide-count{display:flex;gap:4px;align-items:baseline;color:#e4e8df;font-size:12px;white-space:nowrap}
+    .hero-slide-count strong{font-size:21px;font-weight:800;color:white}
+    .hero-progress{width:clamp(78px,13vw,183px);height:2px;border-radius:4px;background:rgba(255,255,255,.33);overflow:hidden}
+    .hero-progress span{display:block;height:100%;width:0;background:#eeb88c;transform-origin:left}
+    @keyframes heroTrack{from{width:0}to{width:100%}}
+    .hero-dots{display:flex;gap:11px;margin-left:auto}
+    .hero-dot{width:8px;height:8px;border-radius:30px;background:rgba(255,255,255,.48);border:0;padding:0;transition:width .3s ease,background-color .3s ease,transform .3s ease}
+    .hero-dot.active{width:31px;background:#f2c49e}
+    .hero-dot:hover{background:#fff;transform:scale(1.12)}
+    .hero-arrows{display:flex;gap:9px;margin-left:20px}
+    .hero-arrow{border:1px solid rgba(255,255,255,.48);background:rgba(255,255,255,.08);width:42px;height:42px;border-radius:50%;font-size:20px;color:white;display:grid;place-items:center}
+    .hero-arrow:hover{color:var(--pine);background:#f2c49e;border-color:#f2c49e;transform:translateY(-2px)}
+    .hero-copy.is-out .hero-eyebrow,.hero-copy.is-out h1,.hero-copy.is-out .hero-sub,.hero-copy.is-out #heroCTA{opacity:0;transform:translateY(-24px);transition:opacity .24s ease,transform .24s ease}
+    @keyframes heroTextEnter{from{opacity:0;transform:translateY(38px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+    @keyframes heroFadeEnter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+    .hero-copy.is-entering .hero-eyebrow{animation:heroFadeEnter .54s ease both}
+    .hero-copy.is-entering h1{animation:heroTextEnter .8s cubic-bezier(.16,1,.3,1) .06s both}
+    .hero-copy.is-entering .hero-sub{animation:heroFadeEnter .7s cubic-bezier(.16,1,.3,1) .23s both}
+    .hero-copy.is-entering #heroCTA{animation:heroFadeEnter .72s cubic-bezier(.16,1,.3,1) .32s both}
+    .product-art{background:#f2f1ec;isolation:isolate}
+    .product-photo-link{display:block;position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;overflow:hidden;background:transparent}
+    .product-photo{width:100%;height:100%;object-fit:contain;object-position:center;display:block;mix-blend-mode:multiply;padding:21px;transition:transform .6s cubic-bezier(.2,.7,.25,1),filter .4s ease}
+    .product-card:hover .product-photo{transform:scale(1.09);filter:contrast(1.025)}
+    .product-photo-link:hover{background:rgba(255,255,255,.07)}
+    .product-art .quick{pointer-events:auto}
+    .product-art .product-tag{pointer-events:none}
+    .cart-thumb{overflow:hidden;background:#f0f0ec}
+    .cart-thumb img{width:100%;height:100%;object-fit:contain;padding:5px;mix-blend-mode:multiply}
+    .feature-visual:before,.feature-visual:after{display:none}
+    .feature-visual img{width:100%;height:100%;object-fit:cover;max-width:none;position:absolute;inset:0;z-index:1;filter:none;transition:transform .75s ease}
+    .feature-panel:hover .feature-visual img{transform:scale(1.045)}
+    .modal{width:min(1010px,calc(100% - 36px));max-height:calc(100svh - 40px);overflow:auto}
+    .modal-grid{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)}
+    .modal-gallery{min-width:0;padding:19px 17px 15px;background:#fafaf8;display:flex;flex-direction:column;gap:12px}
+    .gallery-stage{height:420px;max-height:49svh;position:relative;display:flex;align-items:center;justify-content:center;border-radius:10px;overflow:hidden}
+    .gallery-main-img{width:100%;height:100%;object-fit:contain;padding:26px;mix-blend-mode:multiply;transition:opacity .25s ease,transform .35s ease}
+    .gallery-main-img.switching{opacity:0;transform:scale(.965)}
+    .gallery-counter{position:absolute;z-index:3;left:18px;top:18px;color:#485e50;font-weight:800;background:rgba(255,255,255,.85);padding:9px 11px;border-radius:5px;font-size:10px;letter-spacing:.09em}
+    .gallery-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:39px;height:39px;border:1px solid rgba(44,66,55,.1);background:rgba(255,255,255,.96);color:#294637;font-size:19px;border-radius:50%;box-shadow:0 3px 11px rgba(0,0,0,.065)}
+    .gallery-prev{left:12px}.gallery-next{right:12px}
+    .gallery-nav:hover{background:#264536;color:#fff;transform:translateY(-50%) scale(1.06)}
+    .gallery-thumbnails{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 5px;scrollbar-width:thin}
+    .gallery-thumb{width:83px;height:83px;flex:none;border:2px solid transparent;background:#eaeae5;border-radius:8px;overflow:hidden;padding:3px}
+    .gallery-thumb.active{border-color:#365d4c;background:#eff4ee}
+    .gallery-thumb:hover{border-color:#9bb5a5;transform:translateY(-2px);background:#e2e9df}
+    .gallery-thumb img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+    .gallery-hint{margin:0;font-size:10px;color:#7e9085;line-height:1.5;padding-left:3px}
+    .modal-copy{padding:60px 44px 34px;align-items:stretch;justify-content:center}
+    .modal-copy h2{font-size:31px;margin:12px 0 10px}
+    .modal-copy p{font-size:13px;line-height:1.85;margin:24px 0 19px}
+    .modal-highlights{display:grid;gap:11px;margin:0 0 25px;padding-bottom:23px;border-bottom:1px solid var(--border)}
+    .modal-highlights span{font-size:11px;font-weight:650;color:#637469;display:flex;gap:10px;align-items:center}
+    .modal-highlights b{color:#4b8a63;font-size:12px}
+    .modal-price{font-size:25px}
+    .modal-note{font-size:11px;color:#9ba59b;margin:6px 0 20px}
+    .modal-caption{font-size:10px;color:#9ba49f;margin-top:13px;text-align:center}
+    .btn,.chip,.icon-btn,.wish,.quick,.close,.qty button,.remove,.subscribe button,.hero-arrow,.gallery-nav,.gallery-thumb{transition:color .36s ease,background-color .36s ease,border-color .36s ease,box-shadow .36s ease,transform .32s ease,opacity .3s ease}
+    .btn-dark:hover{background-color:#e3aa82;color:#1d382e;border-color:#e3aa82;box-shadow:0 8px 18px rgba(28,48,37,.13)}
+    .btn-light:hover{background-color:#d7a176;color:#17342b;border-color:#d7a176;box-shadow:0 7px 19px rgba(0,0,0,.13)}
+    .btn-line:hover{background-color:#234338;color:#fff;border-color:#234338}
+    .chip:hover{background-color:#e3ebe2;border-color:#7d9582;color:#244637;transform:translateY(-2px)}
+    .chip.active:hover{background-color:#dbab87;border-color:#dbab87;color:#19382e}
+    .icon-btn:hover{color:#c57b4b;background-color:#dde7de;transform:translateY(-2px)}
+    .wish:hover{color:#ba6749;background-color:#f8e3d4;transform:scale(1.11)}
+    .quick:hover{background-color:#254639;color:#fff;transform:translateY(0)}
+    .close:hover{background-color:#27493d;color:white;transform:rotate(90deg)}
+    .qty button:hover{background-color:#d5e3d4;color:#254738}
+    .remove:hover{color:#c34f2c;background-color:#fff0e8}
+    .subscribe button:hover{background-color:#f8dabd;color:#1e3a31;transform:translateY(-2px)}
+    .product-photo-link:focus-visible,.gallery-thumb:focus-visible,.gallery-nav:focus-visible{outline:3px solid #d7a176;outline-offset:-3px}
+    @media(max-width:1030px){.hero-slider .hero-inner{grid-template-columns:1fr}.hero-slider h1{font-size:clamp(50px,6.7vw,76px)}}
+    @media(max-width:720px){
+      .hero-slider{height:615px;min-height:615px}.hero-slider .hero-inner{height:calc(100% - 79px);min-height:0}
+      .hero-slider .hero-copy{max-width:100%;padding:5px 0 12px}
+      .hero-slider h1{font-size:clamp(46px,10.3vw,66px);margin:17px 0 17px;line-height:1.08}
+      .hero-slider .hero-sub{max-width:345px;font-size:12px;line-height:1.72;margin-bottom:23px}
+      .hero-slider .hero-notes{font-size:10px;margin-top:27px;gap:10px;flex-wrap:wrap}
+      .hero-shade{background:linear-gradient(90deg,rgba(13,30,26,.86),rgba(11,27,22,.37)),linear-gradient(0deg,rgba(11,22,18,.65),transparent 65%)}
+      .hero-toolbar{height:79px;gap:10px}.hero-slide-count strong{font-size:18px}.hero-progress{width:62px}
+      .hero-dots{gap:7px}.hero-arrows{margin-left:8px;gap:5px}.hero-arrow{width:32px;height:32px;font-size:16px}
+      .product-photo{padding:10px}.modal{width:calc(100% - 20px);max-height:94svh}
+      .modal-grid{grid-template-columns:1fr}.modal-gallery{padding:10px;gap:8px}
+      .gallery-stage{height:275px;max-height:none}.gallery-main-img{padding:15px}
+      .gallery-thumbnails{gap:7px}.gallery-thumb{width:63px;height:63px}.gallery-hint{font-size:9px}
+      .modal-copy{padding:23px 25px 28px}.modal-copy h2{font-size:25px}.modal-copy p{font-size:12px;margin:16px 0}
+      .modal-highlights{gap:8px;margin-bottom:18px;padding-bottom:17px}
+      .modal-copy .close{position:fixed;right:20px;top:17px;z-index:6;background:#fff;box-shadow:0 2px 9px rgba(0,0,0,.1)}
+    }
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="announce">A design-led product showcase. <b>Interactive demo · Not a live store</b></div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="NOVA home">N<span class="brand-mark">Ō</span>VA<span style="color:#d08d61">.</span></a>
+      <nav class="nav-links" aria-label="Main navigation"><a href="#shop">Shop all</a><a href="#shop" data-category-link="Lighting">Lighting</a><a href="#shop" data-category-link="Tech">Tech & Audio</a><a href="#story">Our story</a></nav>
+      <div class="nav-right">
+        <button class="icon-btn" id="searchToggle" title="Search products" aria-label="Search products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 5 5"/></svg></button>
+        <button class="icon-btn" id="favoritesBtn" title="Show saved items" aria-label="Show favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 5.7a5.1 5.1 0 0 0-7.3 0L12 7l-1.2-1.3a5.1 5.1 0 0 0-7.3 7.1L12 21l8.5-8.2a5.1 5.1 0 0 0 0-7.1Z"/></svg></button>
+        <button class="icon-btn" id="cartToggle" title="View cart" aria-label="View cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1.2 12H5.2L4 8ZM9 9V6a3 3 0 0 1 6 0v3"/></svg><span class="count" id="cartCount" hidden>0</span></button>
+        <button class="icon-btn mobile-menu" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+    <div class="menu-panel" id="mobileMenuPanel" hidden><a href="#shop">Shop all</a><a href="#shop" data-category-link="Lighting">Lighting</a><a href="#shop" data-category-link="Tech">Tech & Audio</a><a href="#story">Our story</a></div>
+  </header>
+  <main>
+    <section class="hero hero-slider" id="home" aria-label="Featured collections slideshow">
+      <div class="hero-backgrounds" id="heroBackgrounds" aria-hidden="true">
+        <div class="hero-background active" style="background-image:url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=2000&amp;q=85')"></div>
+        <div class="hero-background" style="background-image:url('https://kurodesign.in/cdn/shop/files/kuro-design-mizuki-table-lamp-home-office.jpg?v=1783597249&amp;width=1800')"></div>
+        <div class="hero-background" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&amp;fit=crop&amp;w=2000&amp;q=85')"></div>
+        <div class="hero-background" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=2000&amp;q=85')"></div>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <div class="hero-copy" id="heroCopy" aria-live="polite" aria-atomic="true">
+          <div class="eyebrow hero-eyebrow" id="heroEyebrow">THE CURATED EDIT / 01</div>
+          <h1 id="heroHeading">A home that <em>feels like you.</em></h1>
+          <p class="hero-sub" id="heroDescription">Thoughtful pieces for the spaces you love. Discover a collection where beautiful design meets everyday life.</p>
+          <a href="#shop" class="btn btn-light" id="heroCTA">Explore the collection <span aria-hidden="true">↗</span></a>
+          <div class="hero-notes"><span>✦ &nbsp; Thoughtfully curated</span><span>✦ &nbsp; Everyday essentials</span></div>
+        </div>
+      </div>
+      <div class="container hero-toolbar">
+        <div class="hero-slide-count"><strong id="heroSlideCurrent">01</strong><span> / 04</span></div>
+        <div class="hero-progress" aria-hidden="true"><span id="heroProgress"></span></div>
+        <div class="hero-dots" id="heroDots" role="group" aria-label="Select a slide">
+          <button class="hero-dot active" type="button" data-slide="0" aria-label="Show slide 1" aria-current="true"></button>
+          <button class="hero-dot" type="button" data-slide="1" aria-label="Show slide 2"></button>
+          <button class="hero-dot" type="button" data-slide="2" aria-label="Show slide 3"></button>
+          <button class="hero-dot" type="button" data-slide="3" aria-label="Show slide 4"></button>
+        </div>
+        <div class="hero-arrows"><button id="heroPrev" class="hero-arrow" type="button" aria-label="Previous slide">←</button><button id="heroNext" class="hero-arrow" type="button" aria-label="Next slide">→</button></div>
+      </div>
+    </section>
+    <section class="trust-strip" aria-label="Shopping highlights"><div class="container trust-inner">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 7h12v10H2zM14 10h4l4 4v3h-8"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Curated design inspiration</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 2 3 6 6.7 1-4.85 4.8L18 21l-6-3.2L6 21l1.15-7.2L2.3 9 9 8l3-6Z"/></svg>Designed to delight</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/><path d="M8 12h8M12 8v8"/></svg>Explore every angle</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>Interactive demo experience</div>
+    </div></section>
+    <section class="section" id="shop"><div class="container">
+      <div class="section-heading"><div><span class="section-kicker">The curated edit / 2026</span><h2>Objects worth keeping.</h2></div><p class="section-desc">Form meets function. Discover considered essentials that make your day a little better.</p></div>
+      <div class="filter-row"><div class="chips" id="filters" role="group" aria-label="Filter products"><button class="chip active" data-filter="All">All products</button><button class="chip" data-filter="Lighting">Lighting</button><button class="chip" data-filter="Tech">Tech & Audio</button><button class="chip" data-filter="Living">Furniture & Living</button></div>
+      <div class="tools"><label class="search-box" title="Search products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 5 5"/></svg><input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products"/></label><select id="sortSelect" class="sort" aria-label="Sort products"><option value="featured">Featured</option><option value="low">Price: Low to high</option><option value="high">Price: High to low</option><option value="rating">Top rated</option></select></div></div>
+      <div class="products" id="products" aria-live="polite"></div>
+    </div></section>
+    <section class="section" style="padding-top:0" id="about"><div class="container"><div class="feature-panel"><div class="feature-copy"><span class="section-kicker">Objects & atmosphere</span><h2>Design that feels like home.</h2><p>A modern edit of real objects, from inviting interiors to the technology you use every day. Take a closer look from every angle.</p><a href="#shop" class="btn btn-dark">Discover the edit <span aria-hidden="true">↗</span></a></div><div class="feature-visual" id="featureVisual"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="Warm contemporary living room with mustard accent chair" loading="lazy"></div></div></div></section>
+    <section class="story" id="story"><div class="container story-grid"><div class="story-item"><div class="no">01 / PURPOSE</div><h3>Every detail matters</h3><p>Intuitive function and beautifully balanced form, without unnecessary complexity.</p></div><div class="story-item"><div class="no">02 / DESIGN</div><h3>Made for real life</h3><p>Considered materials, inviting textures and timeless finishes for every space.</p></div><div class="story-item"><div class="no">03 / PHILOSOPHY</div><h3>Keep what you love</h3><p>We believe the most useful objects deserve to be your most loved objects.</p></div></div></section>
+    <section class="newsletter"><div class="container newsletter-inner"><div><h2>Good things in your inbox.</h2><p>Design inspiration, product stories, and a little something extra.</p></div><form class="subscribe" id="subscribeForm"><input type="email" id="email" placeholder="Enter your email address" aria-label="Email address" required/><button type="submit">Subscribe ↗</button></form></div></section>
+  </main>
+  <footer><div class="container"><div class="footer-grid"><div><a class="brand footer-brand" href="#home">N<span class="brand-mark">Ō</span>VA<span style="color:#dca27c">.</span></a><p class="footer-lead">Everyday objects, thoughtfully imagined. Designed for the little things that make life wonderful.</p></div><div class="footer-col"><h4>Explore</h4><a href="#shop">Shop all</a><a href="#shop" data-category-link="Lighting">Lighting</a><a href="#shop" data-category-link="Tech">Tech & Audio</a><a href="#shop" data-category-link="Living">Furniture & Living</a></div><div class="footer-col"><h4>Discover</h4><a href="#story">Our philosophy</a><a href="#about">Our collection</a><a href="#home">Home</a></div><div class="footer-col"><h4>Support</h4><a href="mailto:hello@example.com">Contact us (demo)</a><a href="#shop">Shipping & returns</a><a href="#about">Product care</a></div></div><div class="footer-bottom"><span>© 2026 NOVA. Portfolio concept. Real third-party product photos; product pricing and reviews are illustrative.</span><span>Made with care. Built to inspire.</span></div></div></footer>
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart"><div class="drawer-head"><h2>Your bag <span id="drawerCount" style="font-weight:400;color:#98a59a"></span></h2><button class="close" data-close aria-label="Close cart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-footer"><div class="subtotal"><span>Subtotal</span><span id="subtotal">₹0</span></div><small>Delivery costs are calculated at checkout. Demo only.</small><button id="checkout" class="btn btn-dark">Continue to checkout ↗</button></div></aside>
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-label="Product details"><div id="modalContent"></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const products=[
+  {id:1,name:'Mizuki Table Lamp',category:'Lighting',price:3450,old:null,rating:4.9,reviews:128,tag:'Spotlight',bg:'#e9e2d8',description:'A sculptural table lamp that creates a soft ambient glow, with a gracefully textured shade and quiet presence. Photography: Kuro Design.',features:['Sculptural ambient lighting','Textured contemporary profile','Beautiful on a desk or bedside'],images:[
+    'https://kurodesign.in/cdn/shop/files/kuro-design-mizuki-table-lamp-warm-white-shade.jpg?v=1783597249&width=1200',
+    'https://kurodesign.in/cdn/shop/files/kuro-design-mizuki-table-lamp-01.jpg?v=1783597249&width=1200',
+    'https://kurodesign.in/cdn/shop/files/kuro-design-mizuki-table-lamp-02.jpg?v=1783597249&width=1200',
+    'https://kurodesign.in/cdn/shop/files/kuro-design-mizuki-table-lamp-home-office.jpg?v=1783597249&width=1200'
+  ]},
+  {id:2,name:'Apple AirPods',category:'Tech',price:12999,old:14999,rating:4.8,reviews:94,tag:'Bestseller',bg:'#e8e8e4',description:'Effortless wireless listening in a compact form. Explore the charging case, earbuds and finer details in the product gallery.',features:['True wireless earbuds','Compact charging case','Minimal everyday design'],images:[
+    'https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods/1.webp',
+    'https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods/2.webp',
+    'https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods/3.webp'
+  ]},
+  {id:3,name:'Samsung Galaxy Tab S8+',category:'Tech',price:67999,old:72999,rating:4.7,reviews:76,tag:'New edit',bg:'#e2e9e9',description:'A refined, large-screen tablet for sketching, entertainment and a more flexible workflow. Multiple real product views.',features:['Expansive display','Slim modern silhouette','Designed for work and play'],images:[
+    'https://cdn.dummyjson.com/product-images/tablets/samsung-galaxy-tab-s8-plus-grey/1.webp',
+    'https://cdn.dummyjson.com/product-images/tablets/samsung-galaxy-tab-s8-plus-grey/2.webp',
+    'https://cdn.dummyjson.com/product-images/tablets/samsung-galaxy-tab-s8-plus-grey/3.webp',
+    'https://cdn.dummyjson.com/product-images/tablets/samsung-galaxy-tab-s8-plus-grey/4.webp'
+  ]},
+  {id:4,name:'Knoll Saarinen Chair',category:'Living',price:32999,old:null,rating:4.9,reviews:183,tag:'Design classic',bg:'#f0e8e2',description:'A soft, welcoming executive chair with a sculptural silhouette. View its form from the front, profile and additional product angles.',features:['Sculptural seating design','Supportive upholstered shape','A striking studio accent'],images:[
+    'https://cdn.dummyjson.com/product-images/furniture/knoll-saarinen-executive-conference-chair/1.webp',
+    'https://cdn.dummyjson.com/product-images/furniture/knoll-saarinen-executive-conference-chair/2.webp',
+    'https://cdn.dummyjson.com/product-images/furniture/knoll-saarinen-executive-conference-chair/3.webp'
+  ]},
+  {id:5,name:'Apple Watch Series 4',category:'Tech',price:27999,old:32999,rating:4.6,reviews:66,tag:'',bg:'#eae8e5',description:'An elegant gold-finish smart watch, balancing utility with a classic everyday profile. Examine the finish from different views.',features:['Refined gold-tone finish','Everyday wearable technology','Minimalist wrist silhouette'],images:[
+    'https://cdn.dummyjson.com/product-images/mobile-accessories/apple-watch-series-4-gold/1.webp',
+    'https://cdn.dummyjson.com/product-images/mobile-accessories/apple-watch-series-4-gold/2.webp',
+    'https://cdn.dummyjson.com/product-images/mobile-accessories/apple-watch-series-4-gold/3.webp'
+  ]},
+  {id:6,name:'African Cherry Bedside Table',category:'Living',price:11999,old:14999,rating:4.7,reviews:49,tag:'For your home',bg:'#ede7de',description:'A warm-wood bedside companion designed to keep a room feeling collected, functional and calm.',features:['Warm cherry-toned finish','Functional bedside storage','Compact versatile form'],images:[
+    'https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/1.webp',
+    'https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/2.webp',
+    'https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/3.webp'
+  ]},
+  {id:7,name:'Huawei MateBook X Pro',category:'Tech',price:139999,old:149999,rating:4.9,reviews:112,tag:'Work essentials',bg:'#e8e9ed',description:'A light, capable laptop with clean hardware lines for making, writing and working wherever inspiration strikes.',features:['Slim premium profile','Spacious work-friendly display','Portable creative workstation'],images:[
+    'https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/1.webp',
+    'https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/2.webp',
+    'https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/3.webp'
+  ]},
+  {id:8,name:'Annibale Colombo Sofa',category:'Living',price:64999,old:null,rating:4.8,reviews:85,tag:'Signature piece',bg:'#e6e6e0',description:'Comfort, texture and confident proportions for a living space built around connection.',features:['Considered living-room silhouette','Generous relaxed seating','Soft, expressive texture'],images:[
+    'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/1.webp',
+    'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/2.webp',
+    'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/3.webp'
+  ]}
+];
+const fmt=n=>'₹'+n.toLocaleString('en-IN');
+const icons={heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linejoin="round"><path d="M20.5 5.7a5.1 5.1 0 0 0-7.3 0L12 7l-1.2-1.3a5.1 5.1 0 0 0-7.3 7.1L12 21l8.5-8.2a5.1 5.1 0 0 0 0-7.1Z"/></svg>',bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 8h16l-1 12H5L4 8ZM9 9V6a3 3 0 0 1 6 0v3"/></svg>'};
+const $=s=>document.querySelector(s);let category='All',query='',sort='featured',showFavorites=false;
+function storedJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||fallback)}catch{return JSON.parse(fallback)}}
+let cart=storedJSON('nova-demo-cart','{}');let favorites=new Set(storedJSON('nova-demo-favorites','[]'));
+function save(){try{localStorage.setItem('nova-demo-cart',JSON.stringify(cart));localStorage.setItem('nova-demo-favorites',JSON.stringify([...favorites]))}catch(e){/* Browsers can disable local storage in privacy mode. */}}
+function draw(){let results=products.filter(p=>(category==='All'||p.category===category)&&(!showFavorites||favorites.has(p.id))&&(p.name.toLowerCase().includes(query)||p.category.toLowerCase().includes(query)));
+ if(sort==='low')results.sort((a,b)=>a.price-b.price);else if(sort==='high')results.sort((a,b)=>b.price-a.price);else if(sort==='rating')results.sort((a,b)=>b.rating-a.rating);
+ $('#products').innerHTML=results.map(p=>`<article class="product-card"><div class="product-art" style="background:${p.bg}">${p.tag?`<span class="product-tag">${p.tag}</span>`:''}<button class="wish ${favorites.has(p.id)?'active':''}" data-fav="${p.id}" aria-label="${favorites.has(p.id)?'Remove':'Add'} ${p.name} ${favorites.has(p.id)?'from':'to'} favorites" aria-pressed="${favorites.has(p.id)}">${icons.heart}</button><button type="button" class="product-photo-link" data-view="${p.id}" aria-label="View ${p.name} and photo gallery"><img class="product-photo" src="${p.images[0]}" alt="${p.name}, front product view" loading="lazy" decoding="async"></button><button class="quick" data-view="${p.id}">Explore angles ↗</button></div><div class="product-meta"><div><div class="product-category">${p.category==='Tech'?'Tech & Audio':p.category}</div><h3 class="product-name">${p.name}</h3><div class="review">★ ${p.rating.toFixed(1)} <span>(${p.reviews} reviews)</span></div></div><div class="product-price">${fmt(p.price)}${p.old?`<small>${fmt(p.old)}</small>`:''}</div></div></article>`).join('')||`<div class="empty"><div style="font-size:34px;margin-bottom:15px">⌕</div>No products found.<br/>Try a different search or category.<br/><button class="chip" style="margin-top:18px" id="resetProducts">Show all products</button></div>`;
+ $('#filters').querySelectorAll('[data-filter]').forEach(btn=>btn.classList.toggle('active',!showFavorites&&btn.dataset.filter===category));
+ $('#favoritesBtn').style.color=showFavorites?'#c77c4b':'';
+}
+function reset(){category='All';query='';sort='featured';showFavorites=false;$('#searchInput').value='';$('#sortSelect').value='featured';draw()}
+function counts(){let n=Object.values(cart).reduce((a,b)=>a+b,0);$('#cartCount').textContent=n;$('#cartCount').hidden=n===0;$('#drawerCount').textContent=`(${n})`}
+function renderCart(){counts();let ids=Object.keys(cart).filter(id=>cart[id]>0),sum=0;$('#cartItems').innerHTML=ids.length?ids.map(id=>{let p=products.find(p=>p.id==id),n=cart[id];sum+=p.price*n;return `<div class="cart-item"><div class="cart-thumb" style="background:${p.bg}"><img src="${p.images[0]}" alt="${p.name}" loading="lazy"></div><div class="cart-item-info"><h3>${p.name}</h3><p>${fmt(p.price)}</p><div class="qty"><button data-qty="${p.id}" data-delta="-1" aria-label="Decrease quantity">−</button><span>${n}</span><button data-qty="${p.id}" data-delta="1" aria-label="Increase quantity">+</button></div><button class="remove" data-remove="${p.id}">Remove</button></div></div>`}).join(''):`<div class="cart-empty">${icons.bag}<br>Your bag is empty.<br/><br/>Find something you love in the collection.</div>`;$('#subtotal').textContent=fmt(sum);$('#checkout').disabled=!ids.length;$('#checkout').style.opacity=ids.length?1:.5}
+function closeEverything(){['#overlay','#cartDrawer','#productModal'].forEach(s=>$(s).classList.remove('open'));document.body.style.overflow=''}
+function openCart(){closeEverything();renderCart();$('#overlay').classList.add('open');$('#cartDrawer').classList.add('open');document.body.style.overflow='hidden'}
+let galleryState={productId:null,index:0};
+function imageThumbnails(p){return p.images.map((url,i)=>`<button type="button" class="gallery-thumb ${i===0?'active':''}" data-gallery-index="${i}" aria-label="View image ${i+1} of ${p.name}" aria-pressed="${i===0}"><img src="${url}" alt="${p.name} view ${i+1}" loading="lazy"></button>`).join('')}
+function openProduct(id){
+ let p=products.find(p=>p.id===id);if(!p)return;
+ closeEverything();galleryState={productId:id,index:0};
+ $('#modalContent').innerHTML=`<div class="modal-grid">
+   <div class="modal-gallery">
+     <div class="gallery-stage" style="background:${p.bg}">
+       <img id="galleryMainImage" class="gallery-main-img" src="${p.images[0]}" alt="${p.name}, view 1 of ${p.images.length}">
+       <span class="gallery-counter" id="galleryCounter">01 / ${String(p.images.length).padStart(2,'0')}</span>
+       <button class="gallery-nav gallery-prev" type="button" data-gallery-step="-1" aria-label="Previous product image">←</button>
+       <button class="gallery-nav gallery-next" type="button" data-gallery-step="1" aria-label="Next product image">→</button>
+     </div>
+     <div class="gallery-thumbnails" id="galleryThumbnails">${imageThumbnails(p)}</div>
+     <p class="gallery-hint">${p.images.length} real product views · Choose a thumbnail or use the arrows</p>
+   </div>
+   <div class="modal-copy">
+     <button class="close" data-close type="button" aria-label="Close product details">×</button>
+     <span class="section-kicker">NOVA / ${p.category==='Tech'?'Tech & Audio':p.category==='Living'?'Furniture & Living':p.category}</span>
+     <h2>${p.name}</h2>
+     <div class="review">★ ${p.rating.toFixed(1)} <span>(${p.reviews} demo reviews)</span></div>
+     <p>${p.description}</p>
+     <div class="modal-highlights">${p.features.map(f=>`<span><b>✓</b>${f}</span>`).join('')}</div>
+     <div class="modal-price">${fmt(p.price)}</div>
+     <div class="modal-note">${p.old?`<s>${fmt(p.old)}</s> &nbsp; Concept price for demo`:'Concept price for demo'}</div>
+     <button class="btn btn-dark" data-add="${p.id}">Add to bag &nbsp; ↗</button>
+     <span class="modal-caption">Showcase only · Orders and payments are disabled</span>
+   </div>
+ </div>`;
+ $('#overlay').classList.add('open');$('#productModal').classList.add('open');document.body.style.overflow='hidden';
+}
+function goGallery(index){
+ const p=products.find(x=>x.id===galleryState.productId);if(!p)return;
+ const next=(index+p.images.length)%p.images.length;
+ if(next===galleryState.index)return;
+ galleryState.index=next;
+ const img=$('#galleryMainImage');
+ if(!img)return;
+ img.classList.add('switching');
+ clearTimeout(window.galleryAnimationTimer);
+ window.galleryAnimationTimer=setTimeout(()=>{img.src=p.images[next];img.alt=`${p.name}, view ${next+1} of ${p.images.length}`;img.classList.remove('switching')},130);
+ $('#galleryCounter').textContent=`${String(next+1).padStart(2,'0')} / ${String(p.images.length).padStart(2,'0')}`;
+ document.querySelectorAll('.gallery-thumb').forEach((b,i)=>{b.classList.toggle('active',i===next);b.setAttribute('aria-pressed',String(i===next));});
+}
+const heroSlides=[
+ {eyebrow:'THE CURATED EDIT / 01',title:'A home that <em>feels like you.</em>',description:'Thoughtful pieces for the spaces you love. Discover a collection where beautiful design meets everyday life.',cta:'Explore the collection'},
+ {eyebrow:'THE ART OF LIGHT / 02',title:'Light for <em>slower evenings.</em>',description:'Sculptural forms. Warm, inviting moments. Find the small details that change the atmosphere.',cta:'Explore lighting'},
+ {eyebrow:'DESIGNED TO CREATE / 03',title:'Make space <em>for ideas.</em>',description:'From your desk to your daily rituals, discover essentials that keep inspiration close.',cta:'Explore tech essentials'},
+ {eyebrow:'LIVING BEAUTIFULLY / 04',title:'Every day, <em>reimagined.</em>',description:'Understated interiors, considered materials, and a collection that makes your space yours.',cta:'Shop living essentials'}
+];
+let heroIndex=0,heroInterval=null,heroSwapTimer=null,heroAnimating=false;
+const heroDuration=6200;
+function heroProgressRestart(){
+ const progress=$('#heroProgress');progress.style.animation='none';void progress.offsetWidth;
+ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)progress.style.animation=`heroTrack ${heroDuration}ms linear forwards`;
+ else progress.style.width='100%';
+}
+function setHeroSlide(index){
+ const next=(index+heroSlides.length)%heroSlides.length;
+ if(next===heroIndex&&heroAnimating)return;
+ clearTimeout(heroSwapTimer);
+ const copy=$('#heroCopy');copy.classList.add('is-out');heroAnimating=true;
+ heroSwapTimer=setTimeout(()=>{
+   heroIndex=next;
+   document.querySelectorAll('.hero-background').forEach((bg,i)=>bg.classList.toggle('active',i===next));
+   const d=heroSlides[next];$('#heroEyebrow').textContent=d.eyebrow;$('#heroHeading').innerHTML=d.title;$('#heroDescription').textContent=d.description;
+   $('#heroCTA').innerHTML=d.cta+' <span aria-hidden="true">↗</span>';
+   $('#heroSlideCurrent').textContent=String(next+1).padStart(2,'0');
+   $('#heroDots').querySelectorAll('.hero-dot').forEach((dot,i)=>{dot.classList.toggle('active',i===next);if(i===next)dot.setAttribute('aria-current','true');else dot.removeAttribute('aria-current');});
+   copy.classList.remove('is-out','is-entering');void copy.offsetWidth;copy.classList.add('is-entering');
+   setTimeout(()=>copy.classList.remove('is-entering'),1100);
+   heroAnimating=false;heroProgressRestart();
+ },260);
+}
+function restartHeroAutoplay(){clearInterval(heroInterval);heroProgressRestart();if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)heroInterval=setInterval(()=>{if(!document.hidden)setHeroSlide(heroIndex+1)},heroDuration)}
+function heroGo(index){setHeroSlide(index);restartHeroAutoplay()}
+let toastTimer;function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2500)}
+draw();counts();restartHeroAutoplay();
+document.addEventListener('click',e=>{const t=e.target.closest('button,a');if(!t)return;
+ if(t.matches('[data-filter]')){category=t.dataset.filter;showFavorites=false;draw()}
+ if(t.matches('[data-view]'))openProduct(+t.dataset.view);
+ if(t.matches('[data-gallery-index]'))goGallery(+t.dataset.galleryIndex);
+ if(t.matches('[data-gallery-step]'))goGallery(galleryState.index+Number(t.dataset.galleryStep));
+ if(t.matches('[data-slide]'))heroGo(Number(t.dataset.slide));
+ if(t.matches('[data-fav]')){let id=+t.dataset.fav;favorites.has(id)?favorites.delete(id):favorites.add(id);save();draw();toast(favorites.has(id)?'Added to your favorites':'Removed from favorites')}
+ if(t.matches('[data-add]')){let id=+t.dataset.add;cart[id]=(cart[id]||0)+1;save();closeEverything();openCart();toast('Added to your bag')}
+ if(t.matches('[data-close]'))closeEverything();
+ if(t.matches('[data-qty]')){let id=+t.dataset.qty;cart[id]=Math.max(0,(cart[id]||0)+Number(t.dataset.delta));if(cart[id]===0)delete cart[id];save();renderCart()}
+ if(t.matches('[data-remove]')){delete cart[+t.dataset.remove];save();renderCart()}
+ if(t.matches('[data-category-link]')){category=t.dataset.categoryLink;showFavorites=false;draw();$('#mobileMenuPanel').hidden=true;$('#mobileMenuBtn').setAttribute('aria-expanded','false')}
+ if(t.id==='resetProducts')reset();
+ if(t.closest('#mobileMenuPanel')&&t.tagName==='A'){$('#mobileMenuPanel').hidden=true;$('#mobileMenuBtn').setAttribute('aria-expanded','false')}
+});
+$('#filters').addEventListener('click',()=>{});
+$('#searchInput').addEventListener('input',e=>{query=e.target.value.toLowerCase().trim();draw()});
+$('#sortSelect').addEventListener('change',e=>{sort=e.target.value;draw()});
+$('#searchToggle').addEventListener('click',()=>{$('#shop').scrollIntoView({behavior:'smooth'});setTimeout(()=>$('#searchInput').focus(),400)});
+$('#favoritesBtn').addEventListener('click',()=>{showFavorites=!showFavorites;category='All';draw();$('#shop').scrollIntoView({behavior:'smooth'});if(showFavorites&&!favorites.size)toast('Save an item using the heart icon')});
+$('#cartToggle').addEventListener('click',openCart);
+$('#overlay').addEventListener('click',closeEverything);
+$('#mobileMenuBtn').addEventListener('click',()=>{let p=$('#mobileMenuPanel');p.hidden=!p.hidden;$('#mobileMenuBtn').setAttribute('aria-expanded',String(!p.hidden))});
+$('#checkout').addEventListener('click',()=>toast('Demo mode: no payment or order is processed.'));
+$('#subscribeForm').addEventListener('submit',e=>{e.preventDefault();toast('Thanks! This is a demo subscription form.');$('#email').value=''});
+$('#heroNext').addEventListener('click',()=>heroGo(heroIndex+1));
+$('#heroPrev').addEventListener('click',()=>heroGo(heroIndex-1));
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape')closeEverything();
+ if($('#productModal').classList.contains('open')){
+   if(e.key==='ArrowRight'){e.preventDefault();goGallery(galleryState.index+1)}
+   if(e.key==='ArrowLeft'){e.preventDefault();goGallery(galleryState.index-1)}
+ }
+});
+window.addEventListener('visibilitychange',()=>{if(!document.hidden)restartHeroAutoplay()});
+</script>
+</body>
+</html>
